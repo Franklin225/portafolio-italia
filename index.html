@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafolio Italia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,800&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE  académico-profesional: un portafolio de mercado que se lee como dossier de negocios
+   IDEA   cartel de viaje italiano + billete Milán–Cartagena: Italia vista desde un operador turístico colombiano
+   PICTURE ruta aérea MXP→CTG en la portada; línea de tiempo a escala real; mancuernas Hofstede; matriz de riesgo; evaluador de entrada
+   COLOUR blanco, azzurro (#0a4fa3) dominante, rosso (#c8102e) de apoyo, amarillo Colombia (#f2b705) como acento
+   TYPE   Bodoni Moda (tipografía de Parma) para títulos + Titillium Web (diseñada en Urbino) para el texto
+   LAYOUT barra de pestañas fija; cada página: título y hallazgo arriba, gráfico grande, luego texto en dos columnas; en móvil se apila */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0b1220);--ink:light-dark(#10162a,#e9edf6);--mut:light-dark(#4a5470,#a9b3c9);--azz:light-dark(#0a4fa3,#5c9cf0);--azzd:light-dark(#073a78,#2c6fcb);--ros:light-dark(#c8102e,#ff5a6e);--oro:light-dark(#d99a00,#f2b705);--sur:light-dark(#f2f6fc,#121b2e);--line:light-dark(#d5ddea,#26324b);--sea1:light-dark(#0a4fa3,#0c2a55);--sea2:light-dark(#3f86da,#14407e)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Titillium Web",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Bodoni Moda",Georgia,serif;line-height:1.08;letter-spacing:-.015em;text-wrap:balance;margin:0 0 .4em}
+h1{font-size:clamp(34px,5vw,52px);font-weight:800}
+h2{font-size:clamp(28px,3.6vw,40px);font-weight:800}
+h3{font-size:22px;font-weight:600}
+p{margin:0 0 .9em;max-width:70ch}
+a{color:var(--azz)}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+nav.tabs{position:sticky;top:0;z-index:5;background:var(--azz);color:#fff;display:flex;gap:2px;overflow-x:auto;padding:0 max(2vw,8px);scrollbar-width:thin}
+nav.tabs a{flex:none;color:#fff;text-decoration:none;padding:14px 16px;font-weight:600;font-size:16px;min-height:48px;display:flex;align-items:center;gap:8px;border-bottom:4px solid transparent}
+nav.tabs a .n{font-family:"Bodoni Moda",serif;font-weight:800;color:var(--oro);font-size:18px}
+nav.tabs a[aria-current=page]{border-bottom-color:var(--oro);background:rgba(255,255,255,.1)}
+nav.tabs a:focus-visible{outline:3px solid var(--oro);outline-offset:-3px}
+section.view{display:none}
+section.view.on{display:block}
+.lead{font-size:19px;color:var(--mut);max-width:62ch}
+.finding{border-left:5px solid var(--ros);padding:6px 0 6px 16px;font-size:19px;max-width:66ch;margin:0 0 20px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,44px)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.panel{background:var(--sur);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.panel h3{margin-top:0}
+.src{font-size:14px;color:var(--mut)}
+.tag{display:inline-block;font-size:13px;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--sur);border:1px solid var(--line);white-space:nowrap}
+/* portada */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+.fig{position:relative;min-height:360px;border-radius:12px;overflow:hidden}
+.hero .fig{min-height:0;aspect-ratio:700/460;align-self:start;margin-top:8px;background:var(--sea1)}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.ticket{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:2px solid var(--azz);border-radius:12px;overflow:hidden;margin-top:18px}
+.ticket div{padding:12px 14px;border-right:1px dashed var(--line);border-bottom:1px dashed var(--line)}
+.ticket b{display:block;font-family:"Bodoni Moda",serif;font-size:clamp(24px,3vw,32px);color:var(--azz);line-height:1.1;white-space:nowrap}
+.ticket span{font-size:14px;color:var(--mut)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.card{display:block;text-decoration:none;color:var(--ink);background:var(--sur);border:1px solid var(--line);border-radius:10px;padding:16px;min-height:44px}
+.card:hover,.card:focus-visible{border-color:var(--azz);outline:none;box-shadow:0 0 0 2px var(--azz)}
+.card .n{font-family:"Bodoni Moda",serif;font-size:30px;color:var(--ros);font-weight:800;line-height:1}
+.card h3{margin:6px 0 4px;font-size:20px}
+.card p{font-size:15px;color:var(--mut);margin:0}
+/* línea de tiempo */
+.tl-band{position:relative;height:40px;margin:10px 12px 6px;border-bottom:3px solid var(--azz)}
+.tl-dot{position:absolute;bottom:-11px;width:20px;height:20px;margin-left:-10px;border-radius:50%;border:3px solid var(--bg);cursor:pointer;padding:0}
+.tl-dot.ape{background:var(--azz)}.tl-dot.int{background:var(--oro)}.tl-dot.cri{background:var(--ros)}.tl-dot.hoy{background:var(--ink)}
+.tl-dot[aria-pressed=true]{transform:scale(1.45);box-shadow:0 0 0 3px var(--oro)}
+.tl-dot:focus-visible{outline:3px solid var(--oro)}
+.tl-yr.hide{display:none}
+.tl-yr{position:absolute;bottom:-34px;font-size:13px;color:var(--mut);transform:translateX(-50%);white-space:nowrap}
+.tl-detail{min-height:120px;align-self:start}
+.tl-detail .yr{font-family:"Bodoni Moda",serif;font-size:44px;color:var(--azz);font-weight:800;line-height:1}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--mut);margin:44px 0 10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+ol.tl-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px}
+ol.tl-list li{border-top:1px solid var(--line);padding:10px 0;display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:10px}
+ol.tl-list li.sel{background:color-mix(in srgb,var(--oro) 14%,transparent)}
+ol.tl-list .y{font-family:"Bodoni Moda",serif;font-weight:800;font-size:20px;color:var(--azz)}
+ol.tl-list strong{display:block}
+ol.tl-list span{font-size:15px;color:var(--mut)}
+/* hofstede */
+.hof{display:grid;gap:14px}
+.hrow{display:grid;grid-template-columns:11em minmax(0,1fr) minmax(0,1.3fr);gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:12px}
+.track{position:relative;height:34px}
+.track::before{content:"";position:absolute;left:0;right:0;top:16px;height:2px;background:var(--line)}
+.track .seg{position:absolute;top:15px;height:4px;background:color-mix(in srgb,var(--mut) 45%,transparent)}
+.track .d{position:absolute;top:7px;width:20px;height:20px;margin-left:-10px;border-radius:50%;border:3px solid var(--bg)}
+.track .d.it{background:var(--azz)}.track .d.co{background:var(--oro)}
+.track .v{position:absolute;top:-12px;font-size:13px;font-weight:700;transform:translateX(-50%);white-space:nowrap}
+.hname{font-weight:700}
+.hname small{display:block;font-weight:400;color:var(--mut);font-size:14px}
+.himp{font-size:15px}
+/* tablas */
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;background:var(--sur)}
+/* proceso */
+.route{list-style:none;margin:0;padding:0;position:relative}
+.route::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:6px;background:var(--azz);border-radius:3px}
+.route li{position:relative;padding:0 0 18px 52px}
+.route li::before{content:"";position:absolute;left:5px;top:4px;width:26px;height:26px;border-radius:50%;background:var(--bg);border:5px solid var(--azz)}
+.route li.k::before{border-color:var(--ros)}
+.route b{font-size:18px}
+.route span{display:block;font-size:15px;color:var(--mut)}
+.phr{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.phr div{border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.phr i{font-family:"Bodoni Moda",serif;font-size:19px;color:var(--azz);font-style:normal;display:block}
+.phr span{font-size:14px;color:var(--mut)}
+/* riesgos */
+.matrix{display:grid;grid-template-columns:2.2em repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(92px,auto)) 2em;gap:4px}
+.cell{border-radius:6px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+.c1{background:color-mix(in srgb,var(--azz) 10%,var(--bg))}.c2{background:color-mix(in srgb,var(--oro) 24%,var(--bg))}.c3{background:color-mix(in srgb,var(--ros) 26%,var(--bg))}
+.chip{min-width:40px;min-height:40px;border-radius:50%;border:2px solid var(--ink);background:var(--bg);color:var(--ink);font-weight:700;font-size:16px;cursor:pointer;font-family:inherit}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.chip:focus-visible{outline:3px solid var(--azz);outline-offset:2px}
+.ax{font-size:13px;color:var(--mut);display:flex;align-items:center;justify-content:center;text-align:center}
+.ax.v{writing-mode:vertical-rl;transform:rotate(180deg)}
+.risks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.risk{border:1px solid var(--line);border-radius:10px;padding:14px 16px;scroll-margin-top:90px}
+.risk.sel{border-color:var(--ros);box-shadow:0 0 0 2px var(--ros)}
+.risk h3{font-size:19px;margin:0 0 6px;display:flex;gap:10px;align-items:baseline}
+.risk h3 .num{font-family:"Bodoni Moda",serif;color:var(--ros);font-size:24px}
+.risk p{font-size:15px;margin:0 0 6px}
+.risk .mit{border-top:1px dashed var(--line);padding-top:6px}
+/* barras */
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:3.4em minmax(0,1fr) 4.6em;gap:10px;align-items:center;font-size:15px}
+.bar .t{height:26px;background:var(--sur);border-radius:4px;overflow:hidden}
+.bar .f{height:100%;background:var(--azz)}
+.bar .f.low{background:var(--ros)}
+.bar .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+/* evaluador */
+.eval{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px}
+.sl{display:grid;grid-template-columns:minmax(0,1fr) 2em;gap:10px;align-items:center;margin-bottom:10px}
+.sl label{font-size:15px;font-weight:600}
+.sl output{font-weight:700;text-align:right}
+input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--azz);height:30px}
+input[type=range]:focus-visible{outline:3px solid var(--oro)}
+.btn{font:inherit;font-weight:700;font-size:15px;border:2px solid var(--azz);background:var(--bg);color:var(--azz);border-radius:8px;padding:8px 14px;min-height:44px;cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--oro)}
+.verdict{background:var(--azz);color:#fff;border-radius:12px;padding:20px 22px}
+.verdict h3{color:#fff}
+.verdict ol{margin:0;padding-left:1.2em}
+.verdict li{margin-bottom:6px}
+/* multimedia */
+.media{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:10px}
+.vid{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:center;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px;background:var(--bg)}
+.vid:hover,.vid:focus-visible{border-color:var(--ros);outline:none;box-shadow:0 0 0 2px var(--ros)}
+.vid svg{width:64px;height:44px}
+.vid b{display:block;font-size:15px;line-height:1.3}
+.vid span{font-size:13px;color:var(--mut)}
+.yt{margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--sur)}
+.yt .ratio{position:relative;aspect-ratio:16/9;background:#000}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt figcaption{padding:10px 12px;font-size:14px}
+.yt figcaption b{display:block;font-size:15px;line-height:1.3}
+.yt figcaption a{font-size:13px}
+.media.has-yt{grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr))}
+.reading{border:2px dashed var(--line);border-radius:10px;padding:12px 16px;font-size:15px}
+.refs p{padding-left:2em;text-indent:-2em;font-size:15px;max-width:none}
+footer{border-top:4px solid var(--azz);font-size:14px;color:var(--mut)}
+@media(max-width:900px){.hero,.grid2,.eval{grid-template-columns:minmax(0,1fr)}.grid3{grid-template-columns:minmax(0,1fr)}ol.tl-list,.risks{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){body{font-size:16px}.hrow{grid-template-columns:minmax(0,1fr)}.tl-yr.minor{display:none}table{font-size:13px}th,td{padding:6px 4px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{border:0;padding:3px 0}.stack td::before{content:attr(data-l);display:block;font-weight:700;font-size:13px;color:var(--mut)}}
+@media(prefers-reduced-motion:reduce){.plane{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="tabs" aria-label="Páginas del portafolio">
+  <a href="#inicio">Italia</a>
+  <a href="#historia"><span class="n">1</span>Globalización</a>
+  <a href="#cultura"><span class="n">2</span>Cultura</a>
+  <a href="#protocolo"><span class="n">3</span>Protocolo</a>
+  <a href="#riesgos"><span class="n">4</span>Riesgos</a>
+  <a href="#oportunidades"><span class="n">5</span>Oportunidades</a>
+  <a href="#fuentes">Fuentes y multimedia</a>
+</nav>
+
+<main>
+<!-- ================= PORTADA ================= -->
+<section class="view band" id="v-inicio" data-v="inicio">
+ <div class="wrap">
+  <div class="hero">
+   <div>
+    <h1>Italia como mercado para el turismo colombiano</h1>
+    <p class="lead">Portafolio digital, Tarea 2: Globalización, multiculturalidad y entorno estratégico de los negocios internacionales. Fundamentos de los Negocios Internacionales (127001), UNAD.</p>
+    <p>La empresa que usamos como caso es <b>Ruta Viva Colombia</b>, un operador receptivo (DMC) que diseña viajes por Colombia y busca venderlos a viajeros italianos a través de agencias y tour operadores de Italia. La empresa es ilustrativa; todas las cifras del mercado son reales y tienen fuente.</p>
+    <div class="ticket" aria-label="Datos clave">
+     <div><b>4.º</b><span>exportador mundial de bienes en el tercer trimestre de 2025 (LaPresse, 2025)</span></div>
+     <div><b>6.424</b><span>llegadas a Colombia de residentes en Italia en 2024; eran 9.111 en 2019 (ProColombia, 2025)</span></div>
+     <div><b>1 vuelo</b><span>directo semanal y de temporada, Milán–Cartagena, desde dic. 2024 (Aviacionline, 2024)</span></div>
+     <div><b>50.074</b><span>llegadas de colombianos residentes en Italia en 2024 (ProColombia, 2025)</span></div>
+    </div>
+   </div>
+   <div class="fig" aria-label="Ilustración de la ruta aérea entre Milán y Cartagena">
+    <svg viewBox="0 0 700 460" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="rt">
+     <title id="rt">Ruta Milán Malpensa a Cartagena de Indias</title>
+     <defs>
+      <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--sea1)"/><stop offset="1" stop-color="var(--sea2)"/></linearGradient>
+      <linearGradient id="land" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6e7b8"/><stop offset="1" stop-color="#e2c97a"/></linearGradient>
+     </defs>
+     <rect width="700" height="460" fill="url(#sea)"/>
+     <g stroke="#ffffff" stroke-opacity=".14" fill="none" id="grat"></g>
+     <!-- Europa / Italia esquemática -->
+     <path d="M520 40 C560 30 640 36 700 50 L700 170 C670 160 640 150 612 158 C598 150 590 132 575 128 C560 118 540 120 528 104 C516 90 506 62 520 40Z" fill="url(#land)" opacity=".95"/>
+     <path d="M596 112 C604 122 612 136 622 148 C630 160 642 170 650 182 C656 192 650 198 642 192 C634 184 626 176 618 166 C608 154 600 140 592 126Z" fill="#fff4cf" stroke="#c9a640" stroke-width="1.5"/>
+     <!-- Sudamérica / Caribe esquemático -->
+     <path d="M0 330 C40 320 90 318 130 330 C160 338 190 352 214 372 C236 392 246 420 252 460 L0 460Z" fill="url(#land)" opacity=".95"/>
+     <path d="M118 334 C140 330 158 336 170 346 C160 352 140 352 122 346Z" fill="#fff4cf" stroke="#c9a640" stroke-width="1.5"/>
+     <!-- ruta -->
+     <path id="arc" d="M614 132 C520 20 260 60 140 338" fill="none" stroke="#f2b705" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round"/>
+     <circle cx="614" cy="132" r="9" fill="#c8102e" stroke="#fff" stroke-width="3"/>
+     <circle cx="140" cy="338" r="9" fill="#c8102e" stroke="#fff" stroke-width="3"/>
+     <g class="plane"><path d="M-12 0 L10 -3 L14 0 L10 3 Z M-2 -1 L-8 -10 L-4 -10 L4 -1 Z M-2 1 L-8 10 L-4 10 L4 1 Z M-12 0 L-15 -5 L-13 -5 L-9 -1 Z M-12 0 L-15 5 L-13 5 L-9 1Z" fill="#ffffff"><animateMotion dur="9s" repeatCount="indefinite" rotate="auto" keyPoints="0;1" keyTimes="0;1"><mpath href="#arc"/></animateMotion></path></g>
+     <g font-family="Titillium Web, sans-serif" font-weight="700" fill="#ffffff" style="paint-order:stroke;stroke:#073a78;stroke-width:4px">
+      <text x="600" y="214" font-size="20" text-anchor="end">Milán · MXP</text>
+      <text x="164" y="318" font-size="20">Cartagena · CTG</text>
+      <text x="330" y="96" font-size="16" fill="#f2b705">≈ 9 h 40 min de vuelo</text>
+     </g>
+    </svg>
+   </div>
+  </div>
+ </div>
+</section>
+<section class="view band" data-v="inicio" style="background:var(--sur);padding-top:28px">
+ <div class="wrap">
+  <h2>Las cinco páginas del análisis</h2>
+  <p>Cada página responde una pregunta de negocio y termina con lo que la empresa colombiana debe hacer. Cada página trae videos incrustados que se reproducen aquí mismo y enlaces a documentos que amplían el tema.</p>
+  <div class="cards">
+   <a class="card" href="#historia"><span class="n">1</span><h3>Historia de la globalización</h3><p>De la reconstrucción de posguerra a cuarto exportador del mundo.</p></a>
+   <a class="card" href="#cultura"><span class="n">2</span><h3>Aspectos culturales</h3><p>Idioma, valores, calendario y normas que cambian la forma de operar.</p></a>
+   <a class="card" href="#protocolo"><span class="n">3</span><h3>Protocolos de negociación</h3><p>Saludo, propuesta, decisión, tiempo, contrato y seguimiento.</p></a>
+   <a class="card" href="#riesgos"><span class="n">4</span><h3>Riesgos culturales</h3><p>Matriz de 10 riesgos con su contexto y cómo mitigarlos.</p></a>
+   <a class="card" href="#oportunidades"><span class="n">5</span><h3>Oportunidades</h3><p>Segmentos, ciudades, modo de entrada y recomendación final.</p></a>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 1 HISTORIA ================= -->
+<section class="view band" id="v-historia" data-v="historia">
+ <div class="wrap">
+  <h2>1. Italia en la globalización: de la apertura forzada al cuarto exportador del mundo</h2>
+  <p class="finding">Italia se integró al comercio mundial por necesidad (sin materias primas, tenía que importar y por tanto exportar) y por pertenencia a bloques: GATT, CEE, OCDE, euro. Esa trayectoria explica su fuerza exportadora actual y también sus debilidades: bajo crecimiento, deuda y una brecha Norte–Sur que nunca cerró.</p>
+  <div class="legend" style="margin-top:6px"><span><i style="background:var(--azz)"></i>Apertura e instituciones</span><span><i style="background:var(--oro)"></i>Integración europea</span><span><i style="background:var(--ros)"></i>Crisis y giros</span><span><i style="background:var(--ink)"></i>Papel actual y vínculo con Colombia</span></div>
+  <p class="src" style="margin:0">Línea a escala real 1945–2026. Toque o use las flechas sobre un punto para ver el hito.</p>
+  <div class="tl-band" id="tlBand" role="group" aria-label="Línea de tiempo"></div>
+  <div class="grid2" style="margin-top:52px">
+   <div class="panel tl-detail" id="tlDetail" aria-live="polite"></div>
+   <div>
+    <h3>Por qué Italia importa hoy para los negocios internacionales</h3>
+    <p>En 2025 Italia superó a Japón y quedó como cuarto exportador de bienes del mundo, solo detrás de China, Estados Unidos y Alemania (LaPresse, 2025). Hace diez años ocupaba el séptimo puesto (Wanted in Rome, 2026). Sus exportaciones a Estados Unidos crecieron 7,2 % en 2025, hasta 69.600 millones de euros, a pesar de los aranceles (Reuters, citado en AOL, 2026), y cerró el año con un superávit comercial de 50.700 millones de euros (9Colonne, 2026).</p>
+    <p>Para un operador turístico esto se traduce en un consumidor con poder de compra (PIB per cápita de unos USD 54.000, FMI citado por ProColombia, 2025) que viaja mucho al exterior: 36,8 millones de viajes en 2024.</p>
+   </div>
+  </div>
+  <h3 style="margin-top:28px">Todos los hitos</h3>
+  <ol class="tl-list" id="tlList"></ol>
+  <div class="grid2" style="margin-top:28px">
+   <div class="panel">
+    <h3>Lecciones de la trayectoria italiana</h3>
+    <p><b>La apertura funcionó cuando vino con integración regional.</b> La CEE eliminó lo que quedaba del proteccionismo italiano y coincidió con el "milagro económico" (PBS, s. f.; Britannica, s. f.-a).</p>
+    <p><b>Crecer exportando no basta si el territorio no converge.</b> En 1950 el ingreso per cápita del Sur era la mitad del Norte; el fondo para el Sur gastó USD 20.000 millones entre 1950 y 1980 sin industrializarlo (Britannica, s. f.-a). Para Colombia, la lección es que un acuerdo comercial no reparte beneficios solo.</p>
+    <p><b>La geopolítica cambia los socios.</b> Italia firmó la Franja y la Ruta con China en 2019 y salió en 2023 porque sus importaciones crecieron mucho más que sus exportaciones (CSIS, 2023).</p>
+   </div>
+   <div class="panel">
+    <h3>Qué significa para Ruta Viva Colombia</h3>
+    <p>Italia es una economía abierta, acostumbrada a comprar y vender fuera, y con reglas europeas estables. Eso reduce el riesgo país del lado del comprador.</p>
+    <p>El lado débil es el crecimiento: los ingresos de los hogares italianos no aumentan rápido, así que la oferta debe justificar su precio con valor (experiencias únicas, servicio en italiano), no competir por costo.</p>
+    <p>El Acuerdo Comercial UE–Colombia, aplicado desde el 1 de agosto de 2013 (Comisión Europea, s. f.), da el marco jurídico, pero en turismo receptivo no hay aranceles que bajar: la ventaja real está en la conectividad y la promoción.</p>
+    <div class="reading"><b>Lecturas del curso para esta página:</b> Ortiz Velásquez (2019), págs. 1–27, sobre el concepto y las etapas de la globalización, y Lynch y Jin, págs. 117–124. Los hitos de Italia se ubicaron con las fuentes citadas.</div>
+   </div>
+  </div>
+  <h3 style="margin-top:28px">Multimedia</h3>
+  <div class="media" data-media="historia"></div>
+ </div>
+</section>
+
+<!-- ================= 2 CULTURA ================= -->
+<section class="view band" id="v-cultura" data-v="cultura">
+ <div class="wrap">
+  <h2>2. Aspectos culturales: idioma, valores, calendario y reglas</h2>
+  <p class="finding">Italia y Colombia comparten la importancia de las relaciones y el rechazo a la incertidumbre, pero chocan en individualismo (76 frente a 13) y en orientación al largo plazo (61 frente a 13). El colombiano que llega pensando que "somos latinos y nos entendemos" subestima la formalidad y el detalle que exige el italiano.</p>
+  <div class="grid2">
+   <div>
+    <h3>Hofstede: Italia frente a Colombia</h3>
+    <p class="src"><span style="color:var(--azz);font-weight:700">● Italia</span> &nbsp; <span style="color:var(--oro);font-weight:700">● Colombia</span> &nbsp; escala 0–100 (Hofstede Insights, s. f.)</p>
+    <div class="hof" id="hof"></div>
+   </div>
+   <div>
+    <h3>Idioma</h3>
+    <p>El italiano es la lengua oficial y la de los negocios. Hay minorías lingüísticas reconocidas por ley (alemán en el Tirol del Sur, francés en el Valle de Aosta, esloveno, sardo, entre otras), lo que importa si el cliente es de esas regiones.</p>
+    <p>El inglés no es una apuesta segura. En el índice EF de 2026 Italia quedó en el puesto 31 con 541 puntos (nivel moderado) y su habilidad más baja es la expresión oral, 473 puntos (EF Education First, 2026); en 2025 había caído al puesto 59, último de la UE (PR Newswire, 2025). Hay grandes diferencias entre regiones.</p>
+    <p><b>Implicación:</b> catálogo, contratos y atención en italiano. El parecido con el español ayuda a entenderse, pero no sirve para redactar contratos ni fichas de producto.</p>
+    <h3>Valores que influyen en el trabajo</h3>
+    <p><b>Relaciones y presentación por terceros.</b> Los italianos prefieren trabajar con quien conocen; una introducción de un tercero abre puertas (Cultural Atlas, s. f.).</p>
+    <p><b>Bella figura.</b> La imagen personal y la de lo que se presenta se juzgan desde el primer momento: ropa, materiales, forma de hablar (Commisceo Global, s. f.).</p>
+    <p><b>Jerarquía por edad y cargo</b>, con empresas familiares donde el poder real puede no coincidir con el organigrama (Expat Arrivals, s. f.).</p>
+    <p><b>Contexto alto y estilo multiactivo.</b> Italia es una cultura de contexto alto (MIT Professional Education, s. f.) y multiactiva en el modelo de Lewis: varias tareas a la vez, mucha conversación y relación antes que agenda.</p>
+   </div>
+  </div>
+  <div class="grid2" style="margin-top:24px">
+   <div class="panel">
+    <h3>Calendario que afecta horarios y negociación</h3>
+    <div class="scroll"><table class="stack">
+     <thead><tr><th>Fecha</th><th>Festivo o práctica</th><th>Efecto comercial</th></tr></thead>
+     <tbody>
+      <tr><td data-l="Fecha">1 y 6 ene.</td><td data-l="Festivo">Año Nuevo, Epifanía</td><td data-l="Efecto">Cierra la temporada de viajes de Navidad.</td></tr>
+      <tr><td data-l="Fecha">Mar.–abr.</td><td data-l="Festivo">Pascua y lunes de Pascua (Pasquetta)</td><td data-l="Efecto">Puente de viajes cortos; fecha móvil.</td></tr>
+      <tr><td data-l="Fecha">25 abr., 1 may., 2 jun.</td><td data-l="Festivo">Liberación, Trabajo, República</td><td data-l="Efecto">Se forman "ponti" (puentes) de varios días.</td></tr>
+      <tr><td data-l="Fecha">Agosto, 15 ago.</td><td data-l="Festivo">Vacaciones de verano, Ferragosto</td><td data-l="Efecto">Muchas empresas cierran; no programar reuniones ni cierres.</td></tr>
+      <tr><td data-l="Fecha">1 nov., 8 dic., 25–26 dic.</td><td data-l="Festivo">Todos los Santos, Inmaculada, Navidad</td><td data-l="Efecto">Diciembre coincide con la temporada seca del Caribe colombiano.</td></tr>
+      <tr><td data-l="Fecha">Variable</td><td data-l="Festivo">Santo patrono de cada ciudad (Milán 7 dic., Roma 29 jun.)</td><td data-l="Efecto">Feriado local: revisar antes de agendar.</td></tr>
+     </tbody>
+    </table></div>
+   </div>
+   <div class="panel">
+    <h3>Particularidades legales que una empresa extranjera debe conocer</h3>
+    <p><b>Paquetes turísticos.</b> El Código del Turismo (D. Lgs. 79/2011), reformado por el D. Lgs. 62/2018 que aplica la Directiva (UE) 2015/2302, hace responsable al organizador del paquete ante el viajero y le exige una póliza o garantía bancaria contra insolvencia (Regione Lazio, 2021; ECC-Net Italia, s. f.). Por eso el tour operador italiano exigirá a su proveedor colombiano contratos detallados, seguros y estándares de calidad.</p>
+    <p><b>Datos personales.</b> Las listas de pasajeros italianos están protegidas por el RGPD europeo; el proveedor debe firmar acuerdos de tratamiento de datos.</p>
+    <p><b>Viajes del equipo colombiano a Italia.</b> El ETIAS, la autorización de viaje para quienes no necesitan visa, estaba anunciado para el último trimestre de 2026 (Frontex, s. f.), pero la Comisión Europea no ha confirmado la fecha (Which?, 2026). Hay que verificarlo antes de cada viaje a ferias.</p>
+    <p><b>Del lado colombiano:</b> el operador necesita el Registro Nacional de Turismo y debe cumplir la Ley 1336 de 2009 contra la explotación sexual comercial de niños, niñas y adolescentes en el turismo, un punto que los compradores europeos revisan.</p>
+   </div>
+  </div>
+  <h3 style="margin-top:28px">Multimedia</h3>
+  <div class="media" data-media="cultura"></div>
+ </div>
+</section>
+
+<!-- ================= 3 PROTOCOLO ================= -->
+<section class="view band" id="v-protocolo" data-v="protocolo">
+ <div class="wrap">
+  <h2>3. Protocolos de negociación con compradores italianos</h2>
+  <p class="finding">En Italia se negocia primero la confianza y después el contrato. La empresa colombiana debe adaptar tres cosas: más formalidad al comienzo, una propuesta impecable en forma y fondo, y paciencia con los tiempos de decisión, sin confundir el entusiasmo de una reunión con un acuerdo.</p>
+  <div class="grid2">
+   <div>
+    <h3>La ruta de una negociación con un tour operador</h3>
+    <ol class="route">
+     <li><b>Contacto con referencia</b><span>Llegar presentado por ProColombia, una cámara de comercio o un cliente común. El contacto en frío rinde poco en una cultura de relaciones.</span></li>
+     <li><b>Primera reunión: relación</b><span>Saludo de mano, apellido y título, tarjeta. Conversación personal antes del negocio. No se espera firmar aquí (Accor Business Travel, s. f.).</span></li>
+     <li class="k"><b>Propuesta</b><span>Dossier en italiano, cuidado en lo visual, con tarifas netas, condiciones de cancelación, seguros y estándares de proveedores.</span></li>
+     <li><b>Viaje de familiarización</b><span>El comprador quiere ver y probar. Es la prueba de la "bella figura" del proveedor.</span></li>
+     <li class="k"><b>Contrato marco</b><span>Escrito y detallado: la alta aversión a la incertidumbre (75) y la responsabilidad legal del organizador lo exigen.</span></li>
+     <li><b>Temporada piloto y seguimiento</b><span>Reportes, respuesta rápida y visitas. ProColombia advierte que el arranque con tour operadores italianos es lento, pero que luego se vuelven socios de largo plazo (ProColombia, 2025).</span></li>
+    </ol>
+   </div>
+   <div>
+    <h3>Qué cambia frente a la costumbre colombiana</h3>
+    <div class="scroll"><table class="stack">
+     <thead><tr><th>Aspecto</th><th>En Italia</th><th>Qué adapta la empresa colombiana</th></tr></thead>
+     <tbody>
+      <tr><td data-l="Aspecto">Saludo</td><td data-l="En Italia">Apretón de manos y trato de "Lei" (usted). Títulos como Dottore/Dottoressa o Ingegnere.</td><td data-l="Adaptación">No tutear ni usar el nombre de pila hasta que el italiano lo proponga.</td></tr>
+      <tr><td data-l="Aspecto">Quién decide</td><td data-l="En Italia">La persona de mayor rango o edad, a menudo el dueño de la empresa familiar (Commisceo Global, s. f.).</td><td data-l="Adaptación">Identificar al decisor real y llevar a alguien de rango equivalente.</td></tr>
+      <tr><td data-l="Aspecto">Tiempo</td><td data-l="En Italia">Al extranjero se le exige puntualidad (Commisceo Global, s. f.), aunque las reuniones a veces empiezan 10–15 minutos tarde (CIBT Visas, s. f.). El Norte es más estricto que el Sur.</td><td data-l="Adaptación">Llegar puntual, tolerar el retraso ajeno y confirmar todo por escrito.</td></tr>
+      <tr><td data-l="Aspecto">Comunicación</td><td data-l="En Italia">Expresiva, de contexto alto. Negociadores firmes que respetan a quien defiende su posición (Country Navigator, s. f.).</td><td data-l="Adaptación">Defender la tarifa con argumentos; no ceder solo por mantener el buen ambiente.</td></tr>
+      <tr><td data-l="Aspecto">Reuniones y comidas</td><td data-l="En Italia">La comida es parte del vínculo; se habla de cultura, comida, viajes.</td><td data-l="Adaptación">Aceptar la invitación, no forzar el negocio en la mesa.</td></tr>
+      <tr><td data-l="Aspecto">Contrato y seguimiento</td><td data-l="En Italia">Contrato escrito y detallado; la relación lo sostiene en el tiempo.</td><td data-l="Adaptación">Responder en 24 h, evitar agosto y mantener visitas periódicas.</td></tr>
+     </tbody>
+    </table></div>
+   </div>
+  </div>
+  <div class="grid2" style="margin-top:24px">
+   <div class="panel">
+    <h3>Frases útiles para la primera reunión</h3>
+    <div class="phr">
+     <div><i>Piacere di conoscerla.</i><span>Mucho gusto en conocerlo/la (formal).</span></div>
+     <div><i>Grazie per il suo tempo.</i><span>Gracias por su tiempo.</span></div>
+     <div><i>Le invio la proposta per iscritto.</i><span>Le envío la propuesta por escrito.</span></div>
+     <div><i>Quando possiamo risentirci?</i><span>¿Cuándo podemos volver a hablar?</span></div>
+    </div>
+   </div>
+   <div class="panel">
+    <h3>Base teórica</h3>
+    <p>El protocolo en las relaciones comerciales con extranjeros es un medio para generar confianza y evitar malentendidos.</p>
+    <div class="reading"><b>Lectura principal del curso para esta página:</b> Cuadrado Esclapez (2020), págs. 67–97, sobre principios de protocolo en las relaciones comerciales con extranjeros. Las prácticas específicas de Italia se sustentan en las fuentes citadas en la tabla.</div>
+   </div>
+  </div>
+  <h3 style="margin-top:28px">Multimedia</h3>
+  <div class="media" data-media="protocolo"></div>
+ </div>
+</section>
+
+<!-- ================= 4 RIESGOS ================= -->
+<section class="view band" id="v-riesgos" data-v="riesgos">
+ <div class="wrap">
+  <h2>4. Riesgos culturales de entrar sin conocer Italia</h2>
+  <p class="finding">Los riesgos que más pesan no son de etiqueta sino de operación: incumplir en destino deja al tour operador italiano expuesto ante el viajero bajo la ley europea, y eso rompe la relación de forma definitiva. Los errores de trato se corrigen; los de cumplimiento, casi nunca.</p>
+  <div class="grid2">
+   <div>
+    <h3>Matriz de probabilidad e impacto</h3>
+    <p class="src">Valoración del grupo. Toque un número para ir al riesgo.</p>
+    <div class="matrix" id="matrix" aria-label="Matriz de riesgos"></div>
+   </div>
+   <div class="panel" id="riskFocus" aria-live="polite"></div>
+  </div>
+  <h3 style="margin-top:28px">Los diez riesgos, en contexto y con mitigación</h3>
+  <div class="risks" id="risks"></div>
+  <h3 style="margin-top:28px">Multimedia</h3>
+  <div class="media" data-media="riesgos"></div>
+ </div>
+</section>
+
+<!-- ================= 5 OPORTUNIDADES ================= -->
+<section class="view band" id="v-oportunidades" data-v="oportunidades">
+ <div class="wrap">
+  <h2>5. Oportunidades para una empresa colombiana de turismo</h2>
+  <p class="finding">Italia es un mercado emisor grande pero que todavía viaja poco a Colombia: las llegadas de residentes en Italia siguen por debajo de 2019. Ahí está la oportunidad y también el límite: conviene entrar como especialista de nicho, de la mano de tour operadores italianos, y no con una inversión grande.</p>
+  <div class="grid2">
+   <div>
+    <h3>Llegadas a Colombia de extranjeros residentes en Italia</h3>
+    <div class="bars" id="arrBars"></div>
+    <p class="src" style="margin-top:8px">Fuente: MinCIT–Migración Colombia, cifras provisionales, en ProColombia (2025). Otra fuente reporta un aumento de 10,3 % en 2024 (Semana, 2025); la diferencia puede deberse a cómo se mide el país de residencia, y conviene confirmarla con el dato oficial más reciente.</p>
+   </div>
+   <div>
+    <h3>Lo que dicen los datos de demanda</h3>
+    <div class="ticket" style="margin-top:0">
+     <div><b>36,8 M</b><span>viajes de italianos al exterior en 2024; 0,4 % fue a Brasil, el primer destino latinoamericano</span></div>
+     <div><b>USD 1.408</b><span>gasto medio por viaje internacional en 2024</span></div>
+     <div><b>45 %</b><span>de las reservas desde Italia a Colombia son por más de 21 noches</span></div>
+     <div><b>40,9 %</b><span>de esas reservas se hacen por agencias (canal minorista)</span></div>
+    </div>
+    <p class="src">Fuente: ProColombia (2025), con datos de GlobalData y ForwardKeys/OAG (reservas oct. 2025–mar. 2026). El 49,8 % de esos viajeros llega por España y el 92,5 % entra por Bogotá.</p>
+   </div>
+  </div>
+  <div class="grid3" style="margin-top:24px">
+   <div class="panel"><h3>Segmentos con demanda</h3><p><b>Cultura y gastronomía, 35–49 años:</b> el grupo de edad que más viaja; catas de café y cacao, clases de cocina (ProColombia, 2025).</p><p><b>Caribe y lunas de miel:</b> conectado con la ruta Milán–Cartagena y con la campaña de ProColombia y Bravo (Alpitour) en 29 ciudades italianas (Semana, 2025).</p><p><b>Diáspora y familias mixtas:</b> 50.074 llegadas de colombianos residentes en Italia en 2024; viajan con pareja e hijos italianos.</p></div>
+   <div class="panel"><h3>Ciudades y vitrinas</h3><p><b>Milán y Lombardía:</b> base del vuelo de Neos en Malpensa y sede de la BIT, feria de turismo de febrero (Travel Daily News, 2026).</p><p><b>Roma</b> y el eje <b>Bolonia–Veneto–Turín</b>, con mayor nivel de ingreso.</p><p><b>Rímini:</b> TTG Travel Experience, la principal feria B2B del sector; próxima edición del 13 al 15 de octubre de 2027 (TTG Travel Experience, s. f.).</p></div>
+   <div class="panel"><h3>Complementariedad y acuerdos</h3><p>Colombia ofrece lo que Italia no tiene: selva, Caribe tropical, aves, café de origen y un clima seco en el invierno europeo. Récord de 6,7 millones de visitantes no residentes en 2024 (MinCIT, 2025).</p><p>El Acuerdo UE–Colombia da seguridad jurídica; la ventaja práctica está en la promoción de ProColombia y el vuelo directo, que es <b>estacional y semanal</b> (ProColombia, 2025).</p></div>
+  </div>
+
+  <h3 style="margin-top:32px">Evaluador del modo de entrada</h3>
+  <p>Mueva la importancia de cada criterio para ver cómo cambia la elección. Las puntuaciones de cada modo (1 a 5) son la valoración del grupo, explicada debajo de la gráfica.</p>
+  <div class="eval">
+   <div class="panel" id="weights"></div>
+   <div>
+    <div class="bars" id="modeBars"></div>
+    <div class="scroll" style="margin-top:14px"><table id="modeTable"></table></div>
+   </div>
+  </div>
+
+  <div class="verdict" style="margin-top:28px">
+   <h3>Recomendación: sí vale la pena entrar, como especialista B2B y por etapas</h3>
+   <p><b>Modo de entrada:</b> distribuidor local, es decir, vender como operador receptivo a 3–5 tour operadores italianos especializados en larga distancia. Ellos son el organizador legal del paquete, ya tienen la garantía de insolvencia, y el 40,9 % de las reservas pasa por agencias. En una segunda fase, una alianza con un operador vinculado a la ruta Milán–Cartagena. La venta directa por internet queda solo para la diáspora.</p>
+   <p><b>Condiciones:</b> personal y materiales en italiano; seguro de responsabilidad civil y contratos con estándares por proveedor; un presupuesto de entrada pequeño, proporcional a un mercado que hoy suma unas 6.400 llegadas al año; y metas medibles (número de operadores con contrato y de pasajeros en la primera temporada).</p>
+   <p><b>Primer paso:</b></p>
+   <ol>
+    <li>Inscribirse en la agenda de ProColombia para Italia y pedir citas con tour operadores para la BIT de Milán (febrero de 2027).</li>
+    <li>Preparar un catálogo en italiano con tres productos piloto: Caribe y Cartagena, Eje Cafetero gastronómico, y naturaleza y aves.</li>
+    <li>Ofrecer un viaje de familiarización a los operadores interesados antes de la temporada de diciembre de 2027.</li>
+   </ol>
+  </div>
+  <h3 style="margin-top:28px">Multimedia</h3>
+  <div class="media" data-media="oportunidades"></div>
+ </div>
+</section>
+
+<!-- ================= FUENTES ================= -->
+<section class="view band" id="v-fuentes" data-v="fuentes">
+ <div class="wrap">
+  <h2>Fuentes y recursos multimedia</h2>
+  <p>Los videos también están incrustados en cada página; aquí se listan todos los recursos con enlace directo.</p>
+  <h3>Videos y documentos</h3>
+  <div class="media" data-media="all"></div>
+  <h3 style="margin-top:28px">Referencias (APA 7.ª ed.)</h3>
+  <div class="refs" id="refs"></div>
+ </div>
+</section>
+</main>
+
+<footer class="band">
+ <div class="wrap">Portafolio digital, Tarea 2. Fundamentos de los Negocios Internacionales (127001), Escuela de Ciencias Administrativas, Contables, Económicas y de Negocios, UNAD. Ruta Viva Colombia es una empresa ilustrativa usada como caso de estudio. Cifras consultadas en noviembre de 2026.</div>
+</footer>
+
+<script>
+{
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- navegación por hash ---------- */
+const views=['inicio','historia','cultura','protocolo','riesgos','oportunidades','fuentes'];
+const show=()=>{
+  const h=(location.hash||'').slice(1);
+  const v=views.includes(h)?h:'inicio';
+  document.querySelectorAll('section.view').forEach(s=>s.classList.toggle('on',s.dataset.v===v));
+  document.querySelectorAll('nav.tabs a').forEach(a=>{if(a.getAttribute('href')==='#'+v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  window.scrollTo(0,0);
+};
+window.addEventListener('hashchange',show);
+
+/* ---------- línea de tiempo ---------- */
+const TL=[
+ {y:1947,c:'ape',t:'Apertura obligada de posguerra',d:'Sin petróleo, carbón ni hierro, y con presión de Estados Unidos, Italia abre su economía al mercado internacional entre 1945 y 1950. Llega la ayuda del Plan Marshall y en 1948 ingresa a la OECE.',s:'PBS (s. f.); Geopop (s. f.)'},
+ {y:1950,c:'ape',t:'Ingreso al GATT',d:'Italia es parte contratante del GATT desde el 30 de mayo de 1950: se compromete con la reducción multilateral de aranceles.',s:'OMC (s. f.)'},
+ {y:1951,c:'int',t:'Fundadora de la CECA',d:'Con Francia, Alemania Occidental y el Benelux crea la Comunidad Europea del Carbón y del Acero, primer paso de la integración europea.',s:'Geopop (s. f.)'},
+ {y:1957,c:'int',t:'Tratados de Roma: nace la CEE',d:'El 25 de marzo de 1957 se firma en Roma el tratado de la Comunidad Económica Europea. La unión aduanera acaba con lo que quedaba del proteccionismo italiano.',s:'PBS (s. f.)'},
+ {y:1958,c:'ape',t:'El "milagro económico" (1958–1963)',d:'Entre 1950 y 1963 el PIB crece 5,9 % anual en promedio, con un máximo de 8,3 % en 1961. El Norte industrial exporta; el Sur agrícola se queda atrás.',s:'Britannica (s. f.-a)'},
+ {y:1961,c:'ape',t:'Fundadora de la OCDE',d:'Italia es uno de los 20 países que firman en 1960 la convención de la OCDE, vigente desde el 30 de septiembre de 1961.',s:'OCDE (s. f.); MAECI (s. f.)'},
+ {y:1975,c:'ape',t:'Miembro fundador del G6/G7',d:'Es uno de los seis países de la primera cumbre, en Rambouillet (Francia), en noviembre de 1975; con Canadá, desde 1976, el grupo pasa a ser el G7.',s:'Ministerio de Relaciones Exteriores de Japón (s. f.)'},
+ {y:1992,c:'int',t:'Maastricht y privatizaciones',d:'Para cumplir los criterios de Maastricht, Italia inicia en 1992 privatizaciones a gran escala (unos USD 12.000 millones anuales en 1992–2000) que reducen la deuda pública; el holding estatal IRI, motor de la posguerra, se desmonta.',s:'Goldstein (2003)'},
+ {y:1995,c:'ape',t:'Miembro de la OMC',d:'Desde el 1 de enero de 1995 es miembro de la Organización Mundial del Comercio; su política comercial se negocia a través de la Unión Europea.',s:'OMC (s. f.)'},
+ {y:1999,c:'int',t:'Adopta el euro',d:'Tras un programa de disciplina fiscal para calificar, Italia entra al euro desde su inicio en 1999 (billetes en 2002). Pierde la devaluación como herramienta para ganar competitividad.',s:'Britannica (s. f.-b)'},
+ {y:2011,c:'cri',t:'Crisis de deuda soberana',d:'El diferencial de los bonos a 10 años frente a Alemania pasa de menos de 200 puntos básicos en junio a más de 500 a finales de 2011; cae el gobierno y llega un gabinete técnico de ajuste. Queda expuesto el bajo crecimiento de largo plazo.',s:'CEPR VoxEU (2013)'},
+ {y:2013,c:'hoy',t:'Acuerdo Comercial UE–Colombia',d:'Desde el 1 de agosto de 2013 se aplica de forma provisional el acuerdo de la Unión Europea, incluida Italia, con Colombia.',s:'Comisión Europea (s. f.)'},
+ {y:2019,c:'cri',t:'Entra a la Franja y la Ruta con China',d:'Italia es el único país del G7 que firma el memorando de la Franja y la Ruta.',s:'CSIS (2023)'},
+ {y:2023,c:'cri',t:'Sale de la Franja y la Ruta',d:'En diciembre de 2023 no renueva el memorando: sus exportaciones a China crecieron poco mientras las importaciones casi se duplicaron.',s:'CSIS (2023)'},
+ {y:2024,c:'hoy',t:'Primer vuelo directo Milán–Cartagena',d:'El 22 y 23 de diciembre de 2024 Neos inaugura la ruta, semanal, con escala técnica en Punta Cana. Es la primera conexión directa en años entre los dos países.',s:'Cancillería de Colombia (2024); Aviacionline (2024)'},
+ {y:2025,c:'hoy',t:'Cuarto exportador mundial',d:'En el tercer trimestre de 2025 sus exportaciones (casi USD 190.000 millones) superan a las de Japón; solo China, Estados Unidos y Alemania exportan más.',s:'LaPresse (2025)'}
+];
+const Y0=1945,Y1=2027;
+const band=document.getElementById('tlBand'),det=document.getElementById('tlDetail'),list=document.getElementById('tlList');
+band.innerHTML=TL.map((e,i)=>{const x=((e.y-Y0)/(Y1-Y0)*100).toFixed(2);const lab=[1947,1957,1975,1995,2011,2025];const minor=!lab.includes(e.y)?' hide':([1957,1995].includes(e.y)?' minor':'');return `<button class="tl-dot ${e.c}" style="left:${x}%" data-i="${i}" aria-pressed="false" aria-label="${e.y}: ${esc(e.t)}"></button><span class="tl-yr${minor}" style="left:${x}%">${e.y}</span>`}).join('');
+list.innerHTML=TL.map((e,i)=>`<li data-i="${i}"><span class="y">${e.y}</span><div><strong>${esc(e.t)}</strong><span>${esc(e.d)} <em>(${esc(e.s)})</em></span></div></li>`).join('');
+const pick=i=>{
+  const e=TL[i];
+  det.innerHTML=`<div class="yr">${e.y}</div><h3 style="margin:.3em 0">${esc(e.t)}</h3><p>${esc(e.d)}</p><p class="src">Fuente: ${esc(e.s)}</p>`;
+  band.querySelectorAll('.tl-dot').forEach(b=>b.setAttribute('aria-pressed',b.dataset.i==i?'true':'false'));
+  list.querySelectorAll('li').forEach(l=>l.classList.toggle('sel',l.dataset.i==i));
+};
+band.addEventListener('click',ev=>{const b=ev.target.closest('.tl-dot');if(b)pick(+b.dataset.i)});
+band.addEventListener('keydown',ev=>{const b=ev.target.closest('.tl-dot');if(!b)return;let i=+b.dataset.i;if(ev.key==='ArrowRight')i=Math.min(TL.length-1,i+1);else if(ev.key==='ArrowLeft')i=Math.max(0,i-1);else return;ev.preventDefault();pick(i);band.querySelector(`[data-i="${i}"]`).focus()});
+pick(TL.length-1);
+
+/* ---------- Hofstede ---------- */
+const HOF=[
+ ['Distancia al poder','PDI',50,67,'Italia es más igualitaria en el Norte y más jerárquica en el Sur. Con todo, se respeta el rango: hay que hablar con el decisor real.'],
+ ['Individualismo','IDV',76,13,'La mayor brecha. El italiano valora el logro personal y la competencia; el colombiano, la lealtad al grupo. Reconocer el mérito individual del interlocutor.'],
+ ['Motivación por el logro','MAS',70,64,'Ambos son competitivos y orientados al éxito: se espera una propuesta ambiciosa y bien argumentada.'],
+ ['Evitación de la incertidumbre','UAI',75,80,'Los dos buscan reglas y seguridad: contratos claros, condiciones de cancelación y seguros por escrito.'],
+ ['Orientación al largo plazo','LTO',61,13,'El italiano planea y ahorra; el colombiano prioriza el corto plazo. Presentar la relación como un plan de varias temporadas.'],
+ ['Indulgencia','IVR',30,83,'Italia es más contenida y pesimista en este índice. No exagerar el tono festivo en la venta: seriedad primero, disfrute como resultado.']
+];
+document.getElementById('hof').innerHTML=HOF.map(([n,k,a,b,imp])=>{const lo=Math.min(a,b),hi=Math.max(a,b);return `<div class="hrow"><div class="hname">${n}<small>${k}</small></div><div class="track" role="img" aria-label="${n}: Italia ${a}, Colombia ${b}"><span class="seg" style="left:${lo}%;width:${hi-lo}%"></span><span class="d it" style="left:${a}%"></span><span class="d co" style="left:${b}%"></span><span class="v" style="left:${a}%;color:var(--azz);transform:translateX(${a<b?-95:-5}%)">${a}</span><span class="v" style="left:${b}%;color:var(--oro);transform:translateX(${a<b?-5:-95}%)">${b}</span></div><div class="himp">${imp}</div></div>`}).join('');
+
+/* ---------- riesgos ---------- */
+const R=[
+ {p:3,i:3,t:'Incumplir lo prometido en destino',ctx:'Cambiar un hotel, retrasar un traslado o bajar la calidad de un guía parece menor en Colombia. En Italia el tour operador es el organizador legal y responde ante el viajero, que puede reclamar daños por "vacanza rovinata" (vacaciones arruinadas). El costo pasa al proveedor y la relación se pierde.',m:'Contrato con estándares por servicio, seguro de responsabilidad civil, proveedores verificados y un plan B documentado para cada servicio.'},
+ {p:3,i:2,t:'Presionar para cerrar en la primera reunión',ctx:'La urgencia por firmar se interpreta como desconfianza o desesperación. Los contratos rara vez se firman en el primer encuentro (Accor Business Travel, s. f.).',m:'Plantear objetivos por etapas: primera reunión para conocerse, segunda para la propuesta, fam trip antes del contrato.'},
+ {p:3,i:2,t:'Confundir entusiasmo con acuerdo',ctx:'La conversación italiana es expresiva y de contexto alto; un "sì, interessante" en una comida no es un compromiso. El colombiano que lo toma como venta cerrada planea mal la temporada.',m:'Cerrar cada reunión con un resumen por correo y próximos pasos con fecha.'},
+ {p:2,i:3,t:'Propuesta descuidada o solo en inglés',ctx:'Por la "bella figura", un dossier con errores, fotos pobres o en un inglés que el comprador maneja a medias se lee como poca seriedad del proveedor, y por extensión del destino.',m:'Material profesional en italiano revisado por un hablante nativo; fichas técnicas y tarifas netas claras.'},
+ {p:2,i:2,t:'Tutear o saltarse los títulos',ctx:'Usar el nombre de pila o el "tú" de entrada choca con la formalidad y la jerarquía por edad y cargo. En una empresa familiar, ofender al dueño cierra la puerta.',m:'Usar Signor/Signora o el título profesional y el "Lei" hasta que el italiano proponga el trato informal.'},
+ {p:2,i:2,t:'Choque con la concepción del tiempo',ctx:'Se exige puntualidad al extranjero, pero las reuniones pueden empezar tarde y los plazos estirarse; el Norte es más estricto que el Sur. El colombiano puede caer en los dos errores: llegar tarde o irritarse por la espera.',m:'Llegar puntual, no mostrar impaciencia y fijar fechas de entrega por escrito.'},
+ {p:2,i:3,t:'Humor y estereotipos sobre mafia o narcotráfico',ctx:'Los estereotipos van en las dos direcciones: hay contenido en medios italianos que asocia a Colombia con drogas y turismo sexual, y bromas colombianas sobre la mafia italiana. Una broma así en una reunión destruye la imagen de seriedad. Además, cualquier asociación con turismo sexual tiene consecuencias legales bajo la Ley 1336 de 2009.',m:'Evitar el tema; presentar el código de conducta contra la explotación sexual infantil y la oferta de turismo responsable.'},
+ {p:2,i:1,t:'Gestos que se interpretan mal',ctx:'El gesto de los "cuernos" (índice y meñique extendidos) se entiende como insulto; la gesticulación italiana puede parecer agresiva a un colombiano sin serlo.',m:'Evitar gestos de mano no conocidos y no interpretar el tono alto como enojo.'},
+ {p:2,i:2,t:'Ignorar agosto y el calendario local',ctx:'Escribir o viajar en agosto, o en el día del santo patrono de una ciudad, lleva a correos sin respuesta y reuniones canceladas, y retrasa la contratación de la temporada de invierno.',m:'Calendario comercial anual: prospección en otoño y en las ferias (BIT en febrero, TTG en octubre), nada en agosto.'},
+ {p:1,i:3,t:'Riesgos legales por datos y documentos de viaje',ctx:'Manejar listas de pasajeros sin cumplir el RGPD, o que el equipo comercial no pueda entrar a una feria por no tramitar el ETIAS cuando entre en vigor, son errores de comunicación con costos altos.',m:'Acuerdo de tratamiento de datos con cada operador y verificación de requisitos de viaje un mes antes de cada desplazamiento.'}
+];
+const lbl={1:'Baja',2:'Media',3:'Alta'},ilbl={1:'Bajo',2:'Medio',3:'Alto'};
+const mx=document.getElementById('matrix');
+let mh='';
+for(const p of [3,2,1]){mh+=`<div class="ax v">${lbl[p]}</div>`;for(const i of [1,2,3]){const sev=p+i>=5?'c3':p+i>=4?'c2':'c1';mh+=`<div class="cell ${sev}">${R.map((r,k)=>r.p===p&&r.i===i?`<button class="chip" data-k="${k}" aria-pressed="false" aria-label="Riesgo ${k+1}: ${esc(r.t)}">${k+1}</button>`:'').join('')}</div>`}}
+mh+=`<div></div><div class="ax">Impacto bajo</div><div class="ax">Impacto medio</div><div class="ax">Impacto alto</div>`;
+mx.innerHTML=mh;
+const rk=document.getElementById('risks'),rf=document.getElementById('riskFocus');
+rk.innerHTML=R.map((r,k)=>`<article class="risk" id="r${k+1}"><h3><span class="num">${k+1}</span>${esc(r.t)}</h3><p><span class="tag">Probabilidad ${lbl[r.p].toLowerCase()}</span> <span class="tag">Impacto ${ilbl[r.i].toLowerCase()}</span></p><p>${esc(r.ctx)}</p><p class="mit"><b>Mitigación:</b> ${esc(r.m)}</p></article>`).join('');
+const focusR=(k,scroll)=>{
+  const r=R[k];
+  rf.innerHTML=`<p class="src">Riesgo ${k+1} de ${R.length}</p><h3>${esc(r.t)}</h3><p>${esc(r.ctx)}</p><p><b>Mitigación:</b> ${esc(r.m)}</p>`;
+  mx.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.k==k?'true':'false'));
+  rk.querySelectorAll('.risk').forEach((a,j)=>a.classList.toggle('sel',j===k));
+  if(scroll)document.getElementById('r'+(k+1)).scrollIntoView({behavior:'smooth',block:'center'});
+};
+mx.addEventListener('click',ev=>{const c=ev.target.closest('.chip');if(c)focusR(+c.dataset.k,true)});
+focusR(0,false);
+
+/* ---------- llegadas ---------- */
+const ARR=[[2019,9111],[2020,2475],[2021,5122],[2022,6934],[2023,6814],[2024,6424]];
+const amax=Math.max(...ARR.map(a=>a[1]));
+document.getElementById('arrBars').innerHTML=ARR.map(([y,v])=>`<div class="bar"><span>${y}</span><div class="t"><div class="f${y>2019?' low':''}" style="width:${(v/amax*100).toFixed(1)}%"></div></div><span class="val">${v.toLocaleString('es-CO')}</span></div>`).join('')+`<p class="src" style="margin:4px 0 0">En 2024 las llegadas estaban 29,5 % por debajo de 2019.</p>`;
+
+/* ---------- evaluador de modo de entrada ---------- */
+const CR=[['inv','Baja inversión requerida',4,'Inversión'],['ctl','Control de la experiencia del viajero',3,'Control'],['vel','Velocidad para llegar al cliente italiano',4,'Velocidad'],['leg','Bajo riesgo legal y de responsabilidad',5,'Riesgo legal'],['cul','Ajuste a una cultura de relaciones e intermediarios',4,'Ajuste cultural']];
+const MODES=[
+ {n:'Exportación directa B2C (web en italiano)',s:{inv:3,ctl:5,vel:2,leg:2,cul:2},why:'Control total, pero vender paquetes directo al consumidor europeo convierte a la empresa en organizadora ante la ley europea; además el italiano prefiere comprar a quien conoce.'},
+ {n:'Distribuidor local (tour operadores italianos, B2B)',s:{inv:5,ctl:3,vel:4,leg:4,cul:5},why:'El operador italiano asume la responsabilidad legal y la garantía de insolvencia y ya tiene la cartera de agencias. Se cede parte del control y del margen.'},
+ {n:'Alianza estratégica (operador + ruta aérea)',s:{inv:4,ctl:2,vel:5,leg:4,cul:5},why:'Producto conjunto con un operador ligado al vuelo directo: rápido y visible, pero crea dependencia de un solo socio y de una ruta estacional.'},
+ {n:'Franquicia',s:{inv:2,ctl:3,vel:2,leg:3,cul:2},why:'Requiere una marca reconocida y un modelo replicable que una DMC colombiana no tiene en Italia.'},
+ {n:'Licencia',s:{inv:4,ctl:1,vel:2,leg:3,cul:2},why:'Licenciar contenidos o marca de destino da poco control sobre la experiencia, que es el producto.'}
+];
+const W={};CR.forEach(c=>W[c[0]]=c[2]);
+const wEl=document.getElementById('weights'),mb=document.getElementById('modeBars'),mt=document.getElementById('modeTable');
+wEl.innerHTML='<h3>Importancia de cada criterio (0 a 5)</h3>'+CR.map(([k,n])=>`<div class="sl"><label for="w-${k}">${n}</label><output id="o-${k}" for="w-${k}">${W[k]}</output><input type="range" id="w-${k}" min="0" max="5" step="1" value="${W[k]}" data-k="${k}"></div>`).join('')+'<button class="btn" id="wReset" type="button">Volver a los pesos del grupo</button>';
+mt.innerHTML='<thead><tr><th>Modo</th>'+CR.map(c=>`<th title="${esc(c[1])}" style="text-align:right">${esc(c[3])}</th>`).join('')+'</tr></thead><tbody>'+MODES.map(m=>`<tr><td>${esc(m.n)}<br><span class="src">${esc(m.why)}</span></td>${CR.map(c=>`<td style="text-align:right">${m.s[c[0]]}</td>`).join('')}</tr>`).join('')+'</tbody>';
+const calc=()=>{
+  const sw=CR.reduce((a,c)=>a+W[c[0]],0)||1;
+  const sc=MODES.map(m=>({n:m.n,v:CR.reduce((a,c)=>a+W[c[0]]*m.s[c[0]],0)/(5*sw)*100})).sort((a,b)=>b.v-a.v);
+  mb.innerHTML=sc.map((m,i)=>`<div class="bar" style="grid-template-columns:minmax(0,13em) minmax(0,1fr) 3.2em"><span style="font-weight:${i?400:700}">${esc(m.n)}</span><div class="t"><div class="f" style="width:${m.v.toFixed(1)}%;background:${i?'color-mix(in srgb,var(--azz) 45%,var(--sur))':'var(--azz)'}"></div></div><span class="val">${Math.round(m.v)}</span></div>`).join('');
+};
+wEl.addEventListener('input',ev=>{const k=ev.target.dataset.k;if(!k)return;W[k]=+ev.target.value;document.getElementById('o-'+k).textContent=W[k];calc()});
+document.getElementById('wReset').addEventListener('click',()=>{CR.forEach(([k,,d])=>{W[k]=d;document.getElementById('w-'+k).value=d;document.getElementById('o-'+k).textContent=d});calc()});
+calc();
+
+/* ---------- multimedia ---------- */
+const MED=[
+ {p:'historia',k:'v',u:'https://www.youtube.com/watch?v=p1CIxlrUq1Q',t:'25 de marzo de 1957: el Tratado de Roma y el nacimiento de la UE',a:'Video en español · 1mview'},
+ {p:'historia',k:'v',u:'https://www.youtube.com/watch?v=ZKbMYXSKhGY',t:'Italy built an economic miracle after WWII: so why did its economy stop growing?',a:'Video en inglés · Uncover History'},
+ {p:'cultura',k:'v',u:'https://www.youtube.com/watch?v=bac1wWSgQMs',t:'Cultural Dimensions Theory (explained in 3 minutes)',a:'Video en inglés · Helpful Professor'},
+ {p:'cultura',k:'d',u:'https://empresarios.colombia.travel/es/system/tdf/emprasarios/pdf/perfil_turista_italia_es.pdf?file=1&force=&id=2451&type=node',t:'Perfil del turista italiano',a:'Documento PDF · ProColombia'},
+ {p:'protocolo',k:'v',u:'https://www.youtube.com/watch?v=erO8d8pynvU',t:'El mapa cultural, de Erin Meyer',a:'Video en español · David Cano'},
+ {p:'protocolo',k:'v',u:'https://www.youtube.com/watch?v=JSwaHukBQAo',t:'How to master Italian business etiquette and gestures',a:'Video en inglés · Iryna Bushmina'},
+ {p:'riesgos',k:'v',u:'https://www.youtube.com/watch?v=UEfOGAVW988',t:'8 things to know before doing business in Italy (Norte y Sur)',a:'Video en inglés · Dreamerspro'},
+ {p:'riesgos',k:'d',u:'https://ecc-netitalia.it/wp-content/uploads/pdf_pubblicazioni/Pacchetti_turistici_leaflet.pdf',t:'Paquetes turísticos: derechos del viajero en Italia',a:'Documento PDF en italiano · ECC-Net Italia'},
+ {p:'oportunidades',k:'v',u:'https://www.youtube.com/watch?v=ffqF8cYnB6g',t:'Become a Colombia travel expert: viaje de familiarización con ProColombia',a:'Video en inglés · Impulse Travel Colombia'},
+ {p:'oportunidades',k:'d',u:'https://trade.ec.europa.eu/access-to-markets/es/content/acuerdo-comercial-ue-colombia-ecuador-peru',t:'Acuerdo comercial UE–Colombia–Perú–Ecuador',a:'Página web · Comisión Europea'},
+ {p:'oportunidades',k:'d',u:'https://www.ttgexpo.it/en',t:'TTG Travel Experience, Rímini',a:'Página web · Italian Exhibition Group'}
+];
+const icon=k=>k==='v'?'<svg viewBox="0 0 64 44" aria-hidden="true"><rect width="64" height="44" rx="9" fill="#c8102e"/><path d="M26 13 L44 22 L26 31Z" fill="#fff"/></svg>':'<svg viewBox="0 0 64 44" aria-hidden="true"><rect width="64" height="44" rx="9" fill="#0a4fa3"/><rect x="22" y="8" width="20" height="28" rx="2" fill="#fff"/><path d="M26 16h12M26 21h12M26 26h8" stroke="#0a4fa3" stroke-width="2.5"/></svg>';
+const ytId=u=>(u.match(/[?&]v=([\w-]{11})/)||[])[1];
+const card=m=>`<a class="vid" href="${esc(m.u)}" target="_blank" rel="noopener">${icon(m.k)}<div><b>${esc(m.t)}</b><span>${esc(m.a)} · abre en pestaña nueva</span></div></a>`;
+const emb=m=>`<figure class="yt"><div class="ratio"><iframe src="https://www.youtube-nocookie.com/embed/${ytId(m.u)}?rel=0" title="${esc(m.t)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><figcaption><b>${esc(m.t)}</b>${esc(m.a)} · <a href="${esc(m.u)}" target="_blank" rel="noopener">ver en YouTube</a></figcaption></figure>`;
+document.querySelectorAll('.media').forEach(el=>{const p=el.dataset.media;const items=MED.filter(m=>p==='all'||m.p===p);if(p==='all'){el.innerHTML=items.map(card).join('');return}el.classList.add('has-yt');el.innerHTML=items.filter(m=>m.k==='v').map(emb).join('')+items.filter(m=>m.k!=='v').map(card).join('')});
+
+/* ---------- referencias ---------- */
+const REFS=[
+ 'Accor Business Travel. (s. f.). <i>11 tips for successful business negotiations in Italy</i>. https://businesstravel.accor.com/travelstyle-blog/business-trip-planning/11-tips-for-successful-business-negotiations-in-italy.en.shtml',
+ 'AOL / Reuters. (2026, 29 de enero). <i>Italian exports to US rise 7% in 2025 despite Trump\'s tariffs</i>. https://www.aol.com/articles/italian-exports-us-rise-7-114332370.html',
+ 'Aviacionline. (2024). <i>Nuevo puente entre Colombia e Italia: Neos inauguró sus vuelos a Cartagena</i>. https://aviacionline.com/nuevo-puente-entre-colombia-e-italia-neos-inauguro-sus-vuelos-a-cartagena',
+ 'Britannica. (s. f.-a). <i>Italy: Postwar economic development</i>. https://www.britannica.com/place/Italy/Postwar-economic-development',
+ 'Britannica. (s. f.-b). <i>Italy: Economic strength</i>. https://www.britannica.com/place/Italy/Economic-strength',
+ 'CEPR VoxEU. (2013). <i>Sovereign turmoil, private-sector woes: Italian sovereign spreads and their pass-through</i>. https://cepr.org/voxeu/columns/sovereign-turmoil-private-sector-woes-italian-sovereign-spreads-and-their-pass',
+ 'Cancillería de Colombia. (2024, 23 de diciembre). <i>Nueva conexión aérea entre Colombia e Italia: se estrenó la nueva ruta Milán-Cartagena de Indias-Milán</i>. https://cancilleria.gov.co/node/29996',
+ 'Center for Strategic and International Studies. (2023). <i>Italy withdraws from China\'s Belt and Road Initiative</i>. https://www.csis.org/analysis/italy-withdraws-chinas-belt-and-road-initiative',
+ 'CIBT Visas. (s. f.). <i>A guide to business etiquette in Italy</i>. https://cibtvisas.com/blog/business-etiquette-italy',
+ 'Comisión Europea. (s. f.). <i>Acuerdo comercial UE-Colombia-Perú-Ecuador</i>. Access2Markets. https://trade.ec.europa.eu/access-to-markets/es/content/acuerdo-comercial-ue-colombia-ecuador-peru',
+ 'Commisceo Global. (s. f.). <i>The culture of doing business in Italy</i>. https://commisceo-global.com/blog/doing-business-in-italy-culture',
+ 'Country Navigator. (s. f.). <i>Top tips for doing business in Italy</i>. https://www.countrynavigator.com/blog/top-tips-for-doing-business-in-italy',
+ 'Cuadrado Esclapez, C. (2020). <i>Protocolo en las relaciones internacionales de la empresa y los negocios</i> (2.ª ed.). Fundación Confemetal.',
+ 'Cultural Atlas. (s. f.). <i>Italian culture: Business culture</i>. SBS. https://culturalatlas.sbs.com.au/italian-culture/italian-culture-business-culture',
+ 'Decreto Legislativo 21 maggio 2018, n. 62. Attuazione della direttiva (UE) 2015/2302 relativa ai pacchetti turistici e ai servizi turistici collegati. <i>Gazzetta Ufficiale</i> n. 129 (6 de junio de 2018).',
+ 'ECC-Net Italia. (s. f.). <i>Pacchetti turistici</i> [Folleto]. https://ecc-netitalia.it/wp-content/uploads/pdf_pubblicazioni/Pacchetti_turistici_leaflet.pdf',
+ 'EF Education First. (2026). <i>EF English Proficiency Index: Italy fact sheet</i>. https://www.ef.com/assetscdn/WIBIwq6RdJvcD9bc8RMd/cefcom-epi-site/fact-sheets/2026/ef-epi-fact-sheet-italy-english.pdf',
+ 'Expat Arrivals. (s. f.). <i>Doing business in Italy</i>. https://expatarrivals.com/europe/italy/doing-business-italy',
+ 'Frontex. (s. f.). <i>About ETIAS</i>. https://www.frontex.europa.eu/what-we-do/etias-ees/about-etias',
+ 'Geopop. (s. f.). <i>Come l\'Italia è diventata un paese industriale: breve storia del boom economico</i>. https://www.geopop.it/come-litalia-e-diventata-un-paese-industriale-breve-storia-del-boom-economico/',
+ 'Goldstein, A. (2003). <i>Privatization in Italy 1993-2002: Goals, institutions, outcomes, and outstanding issues</i> (CESifo Working Paper n.º 912). https://cesifo.org/DocDL/cesifo_wp912.pdf',
+ 'Hofstede Insights. (s. f.). <i>Country comparison tool: Italy and Colombia</i>. https://www.hofstede-insights.com/country-comparison-tool',
+ 'LaPresse. (2025, 13 de diciembre). <i>Exports, CGIA: Soaring despite tariffs, Italy ranks fourth among G20 countries</i>. https://uk.lapresse.it/economy-en/2025/12/13/exports-cgia-soaring-despite-tariffs-italy-ranks-fourth-among-g20-countries',
+ 'Lewis, R. D. (2006). <i>When cultures collide: Leading across cultures</i> (3.ª ed.). Nicholas Brealey.',
+ 'Ministerio de Comercio, Industria y Turismo. (2025). <i>Colombia, el País de la Belleza, rompió nuevo récord en turismo al recibir cerca de 6,7 millones de visitantes no residentes en 2024</i>. https://www.mincit.gov.co/prensa/noticias/turismo/colombia-rompio-nuevo-record-en-turismo-en-2024',
+ 'Ministerio de Relaciones Exteriores de Japón. (s. f.). <i>G7: Frequently asked questions</i>. https://www.mofa.go.jp/policy/economy/summit/hiroshima23/en/summit/about/faq/',
+ 'Ministero degli Affari Esteri e della Cooperazione Internazionale. (s. f.). <i>OECD</i>. https://www.esteri.it/en/temi/organizzazioni_internazionali/fora-organizzazioni-economiche-internazionali/ocse/',
+ 'MIT Professional Education. (s. f.). <i>Negotiating across cultures: How global differences shape expectations at the bargaining table</i>. https://professional.mit.edu/news/articles/negotiating-across-cultures-how-global-differences-shape-expectations-bargaining',
+ '9Colonne. (2026). <i>Italy defies trade pressures with €50.7 billion surplus in 2025</i>. https://www.9colonne.it/602316/italy-defies-trade-pressures-with-50-7-billion-surplus-in-2025',
+ 'OCDE. (s. f.). <i>Italy</i>. https://www.oecd.org/italy/',
+ 'Organización Mundial del Comercio. (s. f.). <i>Italy and the WTO</i>. https://www.wto.org/english/thewto_e/countries_e/italy_e.htm',
+ 'Ortiz Velásquez, M. (2019). <i>Introducción a los negocios internacionales: conceptos y aplicaciones</i>. Universidad del Norte.',
+ 'PBS. (s. f.). <i>Commanding heights: Italy, trade policy</i>. https://www.pbs.org/wgbh/commandingheights/lo/countries/it/it_trade.html',
+ 'PR Newswire. (2025, 19 de noviembre). <i>Pubblicato l\'Indice di conoscenza dell\'inglese EF 2025</i>. https://www.prnewswire.com/it/comunicati-stampa/pubblicato-lindice-di-conoscenza-dellinglese-ef-2025-302618323.html',
+ 'ProColombia. (2025). <i>Perfil del turista: Italia</i>. https://empresarios.colombia.travel/es/system/tdf/emprasarios/pdf/perfil_turista_italia_es.pdf?file=1&force=&id=2451&type=node',
+ 'Regione Lazio. (2021). <i>Agenzie di viaggio e turismo: avviso sulla protezione in caso di insolvenza o fallimento</i>. https://regione.lazio.it/sites/default/files/2021-03/agenzie-viaggio-turismo-avviso-protezione-insolvenza-fallimento.pdf',
+ 'Semana. (2025, 9 de junio). <i>Colombia en el cine italiano: esta es la estrategia para promocionar el país como destino turístico en 29 ciudades de la nación europea</i>. https://www.semana.com/economia/capsulas/articulo/colombia-en-el-cine-italiano-esta-es-la-estrategia-para-promocionar-el-pais-como-destino-turistico-en-29-ciudades-de-la-nacion-europea/202536/',
+ 'Travel Daily News. (2026). <i>BIT outlines strategy for 2027 edition</i>. https://www.traveldailynews.com/fairs-exhibitions/bit-outlines-strategy-for-2027-edition/',
+ 'TTG Travel Experience. (s. f.). <i>TTG Travel Experience</i>. Italian Exhibition Group. https://www.ttgexpo.it/en',
+ 'Wanted in Rome. (2026, 8 de febrero). <i>Italy overtakes Japan to become the world\'s fourth largest exporter</i>. https://www.wantedinrome.com/news/italy-overtakes-japan-to-become-the-worlds-fourth-largest-exporter.html',
+ 'Which? (2026). <i>European visa waiver no longer confirmed for 2026</i>. https://www.which.co.uk/news/article/etias-visa-waiver-europe-aUyAH7U3Hd2p'
+];
+document.getElementById('refs').innerHTML=REFS.map(r=>`<p>${r.replace(/(https?:\/\/\S+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>')}</p>`).join('');
+
+/* retícula decorativa de la portada */
+const g=document.getElementById('grat');
+let gh='';for(let x=-100;x<=800;x+=70)gh+=`<path d="M${x} 0 Q${x+40} 230 ${x} 460"/>`;for(let y=40;y<460;y+=60)gh+=`<path d="M0 ${y} Q350 ${y-24} 700 ${y}"/>`;g.innerHTML=gh;
+
+show();
+}
+</script>
+</body>
+</html>
